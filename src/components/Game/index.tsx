@@ -5,7 +5,7 @@ import Grid from "../Grid";
 import { Center } from "../Layout";
 
 import { CombineContexts } from "./../../utils/combine";
-import { GameProvider, GameContext } from "./../../stores/game";
+import { GameProvider } from "./../../stores/game";
 import { ActionsProvider } from "./../../stores/actions";
 import { RouteComponentProps } from "react-router-dom";
 
