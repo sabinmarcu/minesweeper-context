@@ -119,9 +119,9 @@ export const GameProvider: React.FC<Size & { bombs: number }> = ({
         }));
       }
       console.log("⚙ Analysing %d actions", actions.length);
-      let newState = GameStates.ONGOING;
+      let newState: GameStates = GameStates.ONGOING;
       let interactions: { [key: number]: BoxStates } = {};
-      actions.forEach(({ coordinate, action }) => {
+      for (const { coordinate, action } of actions) {
         const index = coordToIndex(coordinate, size);
         if (action === Actions.LEFT_CLICK && items[index].bomb) {
           newState = GameStates.ERROR;
@@ -170,7 +170,7 @@ export const GameProvider: React.FC<Size & { bombs: number }> = ({
             }
           }
         }
-      });
+      }
       if (newState !== GameStates.ERROR) {
         const actionedItems = newItems.map((it, index) =>
           index in interactions && it.state !== interactions[index]
