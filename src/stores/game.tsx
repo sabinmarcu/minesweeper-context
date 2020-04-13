@@ -29,7 +29,8 @@ const makeArray = (size: number): number[] =>
 export const GameContext = createContext<Game>({
   items: [],
   size: { rows: 0, columns: 0 },
-  state: GameStates.INITIAL
+  state: GameStates.INITIAL,
+  bombsLeft: 0
 });
 
 const handleLeftClick = (
@@ -199,8 +200,13 @@ export const GameProvider: React.FC<Size & { bombs: number }> = ({
       setState(GameStates.SUCCESS);
     }
   }, [notBombs, size, setState, bombs]);
+  const bombsLeft = useMemo(
+    () =>
+      bombs - items.filter(({ state }) => state === BoxStates.FLAGGED).length,
+    [bombs, items]
+  );
   return (
-    <GameContext.Provider value={{ items, size, state }}>
+    <GameContext.Provider value={{ items, size, state, bombsLeft }}>
       {children}
     </GameContext.Provider>
   );

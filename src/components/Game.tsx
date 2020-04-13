@@ -5,7 +5,7 @@ import Grid from "./Grid";
 import { Center } from "./Layout";
 
 import { CombineContexts } from "./../utils/combine";
-import { GameProvider } from "./../stores/game";
+import { GameProvider, GameContext } from "./../stores/game";
 import { ActionsProvider } from "./../stores/actions";
 
 export const DebugContext = createContext<boolean>(false);
@@ -29,6 +29,11 @@ export const GameComponent: React.FC<{
           <Measure bounds onResize={({ bounds }) => setSize(bounds)}>
             {({ measureRef }) => (
               <Center ref={measureRef}>
+                <GameContext.Consumer>
+                  {({ bombsLeft }) => (
+                    <h1 style={{ textAlign: "center" }}>{bombsLeft}</h1>
+                  )}
+                </GameContext.Consumer>
                 <Grid {...{ rows, columns, size }} />
               </Center>
             )}

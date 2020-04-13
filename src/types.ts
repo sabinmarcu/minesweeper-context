@@ -19,6 +19,7 @@ export type Game = {
   items: Box[];
   size: Size;
   state: GameStates;
+  bombsLeft: number;
 };
 
 export enum Actions {
