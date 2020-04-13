@@ -63,13 +63,13 @@ export const Box = styled.div<{
   `
     position: relative;
     background: white;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     touch-action: motion;
   `,
   ({ state, bomb, debug = false, gameState }) => ({
+    cursor: state !== BoxStates.UNCOVERED && "pointer",
     color: getColor(state, gameState),
     background: getBackground(bomb, debug, state, gameState),
     border: ["solid", "2px", getBorder(bomb, debug, gameState)].join(" ")

@@ -17,7 +17,6 @@ export const GameComponent: React.FC<{
   debug?: boolean;
 }> = ({ rows, columns, bombs, debug = false }) => {
   const [size, setSize] = useState<BoundingRect | undefined>();
-  console.log(rows, columns, bombs, debug);
   if (!rows || !columns || !bombs) {
     return null;
   }
