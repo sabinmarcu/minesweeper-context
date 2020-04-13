@@ -3,7 +3,8 @@ import React, {
   createContext,
   useContext,
   useEffect,
-  useState
+  useState,
+  useCallback
 } from "react";
 import {
   Game,
@@ -30,7 +31,8 @@ export const GameContext = createContext<Game>({
   items: [],
   size: { rows: 0, columns: 0 },
   state: GameStates.INITIAL,
-  bombsLeft: 0
+  bombsLeft: 0,
+  resetGame: () => {}
 });
 
 const handleLeftClick = (
@@ -68,7 +70,7 @@ export const GameProvider: React.FC<Size & { bombs: number }> = ({
   const resetActions = useResetActions();
   const [items, setItems] = useState<Box[]>([]);
   const [state, setState] = useState<GameStates>(GameStates.INITIAL);
-  useEffect(() => {
+  const resetGame = useCallback(() => {
     console.log("❌ Reseting game board");
     resetActions();
     setState(GameStates.INITIAL);
@@ -82,7 +84,8 @@ export const GameProvider: React.FC<Size & { bombs: number }> = ({
         )
         .flat()
     );
-  }, [rows, columns, setItems, resetActions, bombs]);
+  }, [rows, columns, setItems, resetActions]);
+  useEffect(() => resetGame(), [resetGame, bombs]);
   const initialized = useMemo(
     () => items.length > 0 && typeof items[0].bomb !== "undefined",
     [items]
@@ -206,7 +209,7 @@ export const GameProvider: React.FC<Size & { bombs: number }> = ({
     [bombs, items]
   );
   return (
-    <GameContext.Provider value={{ items, size, state, bombsLeft }}>
+    <GameContext.Provider value={{ items, size, state, bombsLeft, resetGame }}>
       {children}
     </GameContext.Provider>
   );
