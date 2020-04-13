@@ -7,7 +7,7 @@ import { Grid } from "./style";
 export const GridComponent: React.FC<{
   size?: BoundingRect;
   padding?: number;
-}> = ({ size, padding = 10 }) => {
+}> = ({ size, padding = 7 }) => {
   const { size: gameSize } = useGame();
   const { rows, columns } = gameSize;
   if (!size) {
@@ -16,15 +16,20 @@ export const GridComponent: React.FC<{
   const { width, height } = size;
   const boxSize = Math.max(
     25,
-    Math.min(50, Math.min(width / columns, height / rows) - padding)
+    Math.min(
+      50,
+      Math.min((width - padding) / columns, (height - padding) / rows) - padding
+    )
   );
-  const containerWidth = (boxSize + padding) * columns;
+  const containerWidth = (boxSize + padding) * columns + padding;
   return (
     <Grid
       style={{
         width: containerWidth,
         paddingTop: padding / 2,
-        paddingBottom: padding / 2
+        paddingBottom: padding / 2,
+        paddingLeft: padding / 2,
+        paddingRight: padding / 2
       }}
     >
       {new Array(rows)
