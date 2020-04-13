@@ -41,7 +41,8 @@ export const GridComponent: React.FC<{
                 style={{
                   width: boxSize,
                   height: boxSize,
-                  margin: padding / 2
+                  margin: padding / 2,
+                  fontSize: boxSize / 2
                 }}
               />
             ))
