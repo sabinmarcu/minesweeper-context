@@ -33,19 +33,19 @@ export const ErrorComponent = () => (
       <Heading>Try the following presets:</Heading>
     </Wrapper>
     <TileWrapper>
-      <Tile href="/9/9/10">
+      <Tile to="/9/9/10">
         <TileInner>
           <Heading>Easy</Heading>
           <Description light>9x9 with 10 bombs</Description>
         </TileInner>
       </Tile>
-      <Tile href="/16/16/40">
+      <Tile to="/16/16/40">
         <TileInner>
           <Heading>Medium</Heading>
           <Description light>16x16 with 40 bombs</Description>
         </TileInner>
       </Tile>
-      <Tile href="/30/16/99">
+      <Tile to="/30/16/99">
         <TileInner>
           <Heading>Hard Mode</Heading>
           <Description light>30x16 with 99 bombs</Description>
