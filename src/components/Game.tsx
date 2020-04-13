@@ -1,4 +1,4 @@
-import React, { createContext, useState, useMemo } from "react";
+import React, { createContext, useState, useMemo, useEffect } from "react";
 import Measure, { BoundingRect } from "react-measure";
 
 import Grid from "./Grid";
@@ -28,6 +28,9 @@ export const GameComponent: React.FC<
   const bombs = useMemo(() => parseInt(b, 10), [b]);
   const debug = useMemo(() => !!d, [d]);
   const [size, setSize] = useState<BoundingRect | undefined>();
+  useEffect(() => {
+    document.title = `${columns}x${rows}x${bombs}`;
+  }, [columns, rows, bombs]);
   if (!rows || !columns || !bombs) {
     return null;
   }
