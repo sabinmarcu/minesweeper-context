@@ -1,60 +1,20 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import "./styles.css";
 
-import Grid from "./components/Grid";
-import Box from "./components/Box";
-import { Center } from "./components/Layout";
-
-import { CombineContexts } from "./utils/combine";
-import { GameProvider } from "./stores/game";
-import { ActionsProvider } from "./stores/actions";
+import Error from "./components/Error";
+import Game from "./components/Game";
 
 export default function App() {
-  const [rows, setRows] = useState(16);
-  const [columns, setColumns] = useState(30);
-  const [bombs, setBombs] = useState(99);
+  const path = useMemo(() => window.location.pathname.split("/"), []);
+  if (path.length > 5 || path.length < 4) {
+    return <Error />;
+  }
   return (
-    <Center>
-      <div>
-        <input
-          type="number"
-          placeholder="Rows"
-          value={rows}
-          onChange={({ target: { value } }) => setRows(parseInt(value, 10))}
-        />
-        <input
-          type="number"
-          placeholder="Columns"
-          value={columns}
-          onChange={({ target: { value } }) => setColumns(parseInt(value, 10))}
-        />
-        <input
-          type="number"
-          placeholder="Bombs"
-          value={bombs}
-          onChange={({ target: { value } }) => setBombs(parseInt(value, 10))}
-        />
-      </div>
-      <CombineContexts
-        contexts={[ActionsProvider, [GameProvider, { rows, columns, bombs }]]}
-      >
-        <Grid {...{ rows, columns }}>
-          {new Array(rows)
-            .fill(0)
-            .map((it, index) => index)
-            .map(row =>
-              new Array(columns)
-                .fill(0)
-                .map((it, index) => index)
-                .map(column => (
-                  <Box
-                    key={`${row}:${column}`}
-                    coordinate={{ y: row, x: column }}
-                  />
-                ))
-            )}
-        </Grid>
-      </CombineContexts>
-    </Center>
+    <Game
+      rows={parseInt(path[1], 10)}
+      columns={parseInt(path[2], 10)}
+      bombs={parseInt(path[3], 10)}
+      debug={!!path[4]}
+    />
   );
 }

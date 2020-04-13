@@ -6,6 +6,9 @@ body,
   overflow: hidden;
   width: 100vw;
   height: 100vh;
+  touch-action: none;
+  font-family: Roboto, "Helvetica Neue", "Segoe Ui", Arial, Helvetica,
+    sans-serif;
 }
 
 * {
