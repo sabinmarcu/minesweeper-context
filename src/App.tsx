@@ -1,20 +1,20 @@
-import React, { useMemo } from "react";
+import React from "react";
 import "./styles.css";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Error from "./components/Error";
 import Game from "./components/Game";
 
-export default function App() {
-  const path = useMemo(() => window.location.pathname.split("/"), []);
-  if (path.length > 5 || path.length < 4) {
-    return <Error />;
-  }
+export default (function App() {
   return (
-    <Game
-      rows={parseInt(path[2], 10)}
-      columns={parseInt(path[1], 10)}
-      bombs={parseInt(path[3], 10)}
-      debug={!!path[4]}
-    />
+    <Router>
+      {/* <Route exact path="/" component={Error} /> */}
+      <Switch>
+        <Route exact path="/:columns/:rows/:bombs" component={Game} />
+        <Route exact path="/:columns/:rows/:bombs/:debug" component={Game} />
+        <Route path="/" component={Error} />
+      </Switch>
+    </Router>
   );
-}
+});
