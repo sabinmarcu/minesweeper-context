@@ -46,17 +46,6 @@ export const GameComponent: React.FC<
           <Measure bounds onResize={({ bounds }) => setSize(bounds)}>
             {({ measureRef }) => (
               <Center ref={measureRef}>
-                <GameContext.Consumer>
-                  {({ bombsLeft, resetGame }) => (
-                    <Nav>
-                      <Item />
-                      <Heading>{bombsLeft}</Heading>
-                      <Item onClick={resetGame}>
-                        <Refresh />
-                      </Item>
-                    </Nav>
-                  )}
-                </GameContext.Consumer>
                 <Grid {...{ rows, columns, size }} />
               </Center>
             )}
