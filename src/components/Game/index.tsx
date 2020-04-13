@@ -5,9 +5,12 @@ import Grid from "../Grid";
 import { Center } from "../Layout";
 
 import { CombineContexts } from "./../../utils/combine";
-import { GameProvider } from "./../../stores/game";
+import { GameProvider, GameContext } from "./../../stores/game";
 import { ActionsProvider } from "./../../stores/actions";
 import { RouteComponentProps } from "react-router-dom";
+
+import { Nav, Item, Heading } from "./style";
+import Refresh from "@material-ui/icons/RefreshOutlined";
 
 export const DebugContext = createContext<boolean>(false);
 
