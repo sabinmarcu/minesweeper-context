@@ -8,8 +8,9 @@ export const Wrapper = styled.section`
   max-width: 500px;
 `;
 
-export const Heading = styled.h1`
+export const Heading = styled.h1<{ large?: boolean }>`
   width: 100%;
+  ${({ large }) => large && "font-size: 2.5rem;"}
 `;
 
 export const Description = styled.div<{ light?: boolean }>`

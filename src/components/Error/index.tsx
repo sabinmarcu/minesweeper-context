@@ -13,7 +13,7 @@ import {
 export const ErrorComponent = () => (
   <Center style={{ overflowY: "auto" }}>
     <Wrapper>
-      <Heading>Please use the proper URL Structure</Heading>
+      <Heading large>Please use the proper URL Structure</Heading>
       <Description>
         <p>This app uses an URL structure to describe the game board.</p>
         <p>The structure is as follows</p>
@@ -28,6 +28,8 @@ export const ErrorComponent = () => (
           Would render the classical "Hard" mode of 30x16 columns with 99 bombs
         </p>
       </Description>
+      <br />
+      <br />
       <Heading>Try the following presets:</Heading>
     </Wrapper>
     <TileWrapper>
