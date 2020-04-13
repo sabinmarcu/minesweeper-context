@@ -18,15 +18,13 @@ export const GridComponent: React.FC<{
     25,
     Math.min(50, Math.min(width / columns, height / rows) - padding)
   );
-  const sidePadding = width - (boxSize + padding) * columns;
+  const containerWidth = (boxSize + padding) * columns;
   return (
     <Grid
       style={{
-        width: (boxSize + padding) * columns,
+        width: containerWidth,
         paddingTop: padding / 2,
-        paddingBottom: padding / 2,
-        paddingLeft: sidePadding / 2,
-        paddingRight: sidePadding / 2
+        paddingBottom: padding / 2
       }}
     >
       {new Array(rows)
