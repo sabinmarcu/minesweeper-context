@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.section`
   display: flex;
@@ -29,7 +30,7 @@ export const TileWrapper = styled.section`
   grid-gap: 20px;
 `;
 
-export const Tile = styled.a`
+export const Tile = styled(Link)`
   display: block;
   color: white;
   flex: 1;
