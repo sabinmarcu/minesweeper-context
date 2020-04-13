@@ -1,13 +1,16 @@
 import React, { createContext, useState, useMemo, useEffect } from "react";
 import Measure, { BoundingRect } from "react-measure";
 
-import Grid from "./Grid";
-import { Center } from "./Layout";
+import Grid from "../Grid";
+import { Center } from "../Layout";
 
-import { CombineContexts } from "./../utils/combine";
-import { GameProvider, GameContext } from "./../stores/game";
-import { ActionsProvider } from "./../stores/actions";
+import { CombineContexts } from "./../../utils/combine";
+import { GameProvider, GameContext } from "./../../stores/game";
+import { ActionsProvider } from "./../../stores/actions";
 import { RouteComponentProps } from "react-router-dom";
+
+import { Nav, Item, Heading } from "./style";
+import Refresh from "@material-ui/icons/RefreshOutlined";
 
 export const DebugContext = createContext<boolean>(false);
 
@@ -44,8 +47,14 @@ export const GameComponent: React.FC<
             {({ measureRef }) => (
               <Center ref={measureRef}>
                 <GameContext.Consumer>
-                  {({ bombsLeft }) => (
-                    <h1 style={{ textAlign: "center" }}>{bombsLeft}</h1>
+                  {({ bombsLeft, resetGame }) => (
+                    <Nav>
+                      <Item />
+                      <Heading>{bombsLeft}</Heading>
+                      <Item onClick={resetGame}>
+                        <Refresh />
+                      </Item>
+                    </Nav>
                   )}
                 </GameContext.Consumer>
                 <Grid {...{ rows, columns, size }} />
