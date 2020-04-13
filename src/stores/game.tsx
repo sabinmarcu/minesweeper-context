@@ -130,7 +130,7 @@ export const GameProvider: React.FC<Size & { bombs: number }> = ({
           if (
             action === Actions.LEFT_CLICK &&
             (!(index in interactions) ||
-              interactions[index] === BoxStates.COVERED)
+              interactions[index] !== BoxStates.UNCOVERED)
           ) {
             handleLeftClick(index, interactions, size, items);
           } else if (
