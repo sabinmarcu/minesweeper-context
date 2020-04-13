@@ -18,11 +18,11 @@ export const ErrorComponent = () => (
         <p>This app uses an URL structure to describe the game board.</p>
         <p>The structure is as follows</p>
         <code>
-          <pre>/rows/columns/bombs[/debug]</pre>
+          <pre>/columns/rows/bombs[/debug]</pre>
         </code>
         <p>For example</p>
         <code>
-          <pre>/16/30/99</pre>
+          <pre>/30/60/99</pre>
         </code>
         <p>
           Would render the classical "Hard" mode of 30x16 columns with 99 bombs
@@ -43,7 +43,7 @@ export const ErrorComponent = () => (
           <Description light>16x16 with 40 bombs</Description>
         </TileInner>
       </Tile>
-      <Tile href="/16/30/99">
+      <Tile href="/30/16/99">
         <TileInner>
           <Heading>Hard Mode</Heading>
           <Description light>30x16 with 99 bombs</Description>

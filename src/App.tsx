@@ -11,8 +11,8 @@ export default function App() {
   }
   return (
     <Game
-      rows={parseInt(path[1], 10)}
-      columns={parseInt(path[2], 10)}
+      rows={parseInt(path[2], 10)}
+      columns={parseInt(path[1], 10)}
       bombs={parseInt(path[3], 10)}
       debug={!!path[4]}
     />

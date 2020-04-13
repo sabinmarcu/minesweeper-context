@@ -55,18 +55,14 @@ export const useAction = (coordinate: Coordinate) => {
   const { addAction } = useContext(ActionsContext);
   const onTap = useCallback(
     e => {
-      console.log(
-        isTouch,
-        e.target.dataset.state,
-        e.target.dataset.state === BoxStates.UNCOVERED
-      );
       if (
         isTouch &&
         parseInt(e.target.dataset.state, 10) === BoxStates.UNCOVERED
       ) {
         addAction(coordinate, Actions.DBL_CLICK);
+      } else {
+        addAction(coordinate, Actions.LEFT_CLICK);
       }
-      addAction(coordinate, Actions.LEFT_CLICK);
       return nop(e);
     },
     [addAction, coordinate]

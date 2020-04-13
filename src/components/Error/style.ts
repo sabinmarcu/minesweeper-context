@@ -22,7 +22,7 @@ const randomColor = () => colors[Math.floor(Math.random() * colors.length)];
 
 export const TileWrapper = styled.section`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 300px));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
   justify-content: center;
   align-content: center;
   grid-gap: 20px;

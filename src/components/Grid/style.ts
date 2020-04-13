@@ -6,6 +6,7 @@ export const Grid = styled.section`
   justify-content: center;
   align-items: center;
   flex-flow: row wrap;
+  touch-action: manipulation;
 `;
 
 export default Grid;
