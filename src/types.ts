@@ -20,6 +20,7 @@ export type Game = {
   size: Size;
   state: GameStates;
   bombsLeft: number;
+  resetGame: () => void;
 };
 
 export enum Actions {

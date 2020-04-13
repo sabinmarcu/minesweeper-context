@@ -67,9 +67,9 @@ export const Box = styled.div<{
     align-items: center;
     justify-content: center;
     touch-action: motion;
+    cursor: pointer;
   `,
   ({ state, bomb, debug = false, gameState }) => ({
-    cursor: state !== BoxStates.UNCOVERED ? "pointer" : "initial",
     color: getColor(state, gameState),
     background: getBackground(bomb, debug, state, gameState),
     border: ["solid", "2px", getBorder(bomb, debug, gameState)].join(" ")
