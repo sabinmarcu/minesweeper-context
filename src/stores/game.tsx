@@ -127,13 +127,18 @@ export const GameProvider: React.FC<Size & { bombs: number }> = ({
       let interactions: { [key: number]: BoxStates } = {};
       for (const { coordinate, action } of actions) {
         const index = coordToIndex(coordinate, size);
-        if (action === Actions.LEFT_CLICK && items[index].bomb) {
+        if (
+          action === Actions.LEFT_CLICK &&
+          (!(index in interactions) ||
+            interactions[index] === BoxStates.COVERED) &&
+          items[index].bomb
+        ) {
           newState = GameStates.ERROR;
         } else {
           if (
             action === Actions.LEFT_CLICK &&
             (!(index in interactions) ||
-              interactions[index] !== BoxStates.UNCOVERED)
+              interactions[index] === BoxStates.COVERED)
           ) {
             handleLeftClick(index, interactions, size, items);
           } else if (
