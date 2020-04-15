@@ -169,12 +169,12 @@ export const GameProvider: React.FC<Size & { bombs: number }> = ({
             const flagged = n.filter(
               it => interactions[it] === BoxStates.FLAGGED
             );
-            const covered = n.filter(
+            const covered = covered.filter(
               it => !interactions[it] || interactions[it] === BoxStates.COVERED
             );
             const bombs = n.filter(it => items[it].bomb);
             if (flagged.length === items[index].neighborCount) {
-              if (bombs.length > 0) {
+              if (bombs.length  > 0) {
                 newState = GameStates.ERROR;
               } else {
                 covered.forEach(it =>
