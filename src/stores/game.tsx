@@ -172,10 +172,15 @@ export const GameProvider: React.FC<Size & { bombs: number }> = ({
             const covered = n.filter(
               it => !interactions[it] || interactions[it] === BoxStates.COVERED
             );
+            const bombs = n.filter(it => items[it].bomb);
             if (flagged.length === items[index].neighborCount) {
-              covered.forEach(it =>
-                handleLeftClick(it, interactions, size, items)
-              );
+              if (bombs.length > 0) {
+                newState = GameStates.ERROR;
+              } else {
+                covered.forEach(it =>
+                  handleLeftClick(it, interactions, size, items)
+                );
+              }
             }
           }
         }
