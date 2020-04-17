@@ -1,0 +1,39 @@
+parser: "@typescript-eslint/parser"
+plugins:
+  - "@typescript-eslint"
+extends:
+  - plugin:@typescript-eslint/recommended
+  - airbnb
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+settings:
+  react:
+    version: detect
+  import/extensions:
+    - .js
+    - .jsx
+    - .ts
+    - .tsx
+env:
+  browser: true
+rules:
+  react/jsx-filename-extension:
+    - 1
+    -
+      extensions:
+        - .jsx
+        - .tsx
+  react/prop-types: 0
+  react/jsx-props-no-spreading: 0
+  no-restricted-syntax: 0
+  import/extensions:
+    - 1
+    - ignorePackages
+    -
+      js: never
+      jsx: never
+      ts: never
+      tsx: never

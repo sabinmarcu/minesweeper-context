@@ -1,15 +1,29 @@
-import React, { createContext, useState, useMemo, useEffect } from "react";
-import Measure, { BoundingRect } from "react-measure";
+import React, {
+  createContext, useState, useMemo, useEffect,
+} from 'react';
 
-import Grid from "../Grid";
-import { Center } from "../Layout";
+import { ThemeProvider } from 'emotion-theming';
+import Measure, { BoundingRect } from 'react-measure';
+import { RouteComponentProps } from 'react-router-dom';
 
-import { CombineContexts } from "./../../utils/combine";
-import { GameProvider } from "./../../stores/game";
-import { ActionsProvider } from "./../../stores/actions";
-import { RouteComponentProps } from "react-router-dom";
+
+import Grid from '../Grid';
+import { Center } from '../Layout';
+
+import { CombineContexts } from '../../utils/combine';
+import { GameProvider } from '../../stores/game';
+import { ActionsProvider } from '../../stores/actions';
+
+import { themeLight, theme } from '../../config/theme';
 
 export const DebugContext = createContext<boolean>(false);
+export const ThemeSwitchContext = createContext<{
+  isDark: boolean;
+  toggle: () => void;
+    }>({
+      isDark: true,
+      toggle: () => {},
+    });
 
 export const GameComponent: React.FC<
   RouteComponentProps<{
@@ -20,14 +34,18 @@ export const GameComponent: React.FC<
   }>
 > = ({
   match: {
-    params: { rows: r, columns: c, bombs: b, debug: d }
-  }
+    params: {
+      rows: r, columns: c, bombs: b, debug: d,
+    },
+  },
 }) => {
   const rows = useMemo(() => parseInt(r, 10), [r]);
   const columns = useMemo(() => parseInt(c, 10), [c]);
   const bombs = useMemo(() => parseInt(b, 10), [b]);
   const debug = useMemo(() => !!d, [d]);
   const [size, setSize] = useState<BoundingRect | undefined>();
+  const [isDark, setIsDark] = useState<boolean>(true);
+  const toggleDarkTheme = (): void => setIsDark((d) => !d);
   useEffect(() => {
     document.title = `${columns}x${rows}x${bombs}`;
   }, [columns, rows, bombs]);
@@ -35,21 +53,25 @@ export const GameComponent: React.FC<
     return null;
   }
   return (
-    <DebugContext.Provider value={debug}>
-      <Center>
-        <CombineContexts
-          contexts={[ActionsProvider, [GameProvider, { rows, columns, bombs }]]}
-        >
-          <Measure bounds onResize={({ bounds }) => setSize(bounds)}>
-            {({ measureRef }) => (
-              <Center ref={measureRef}>
-                <Grid {...{ rows, columns, size }} />
-              </Center>
-            )}
-          </Measure>
-        </CombineContexts>
-      </Center>
-    </DebugContext.Provider>
+    <ThemeSwitchContext.Provider value={{ isDark, toggle: toggleDarkTheme }}>
+      <ThemeProvider theme={isDark ? theme : themeLight}>
+        <DebugContext.Provider value={debug}>
+          <Center>
+            <CombineContexts
+              contexts={[ActionsProvider, [GameProvider, { rows, columns, bombs }]]}
+            >
+              <Measure bounds onResize={({ bounds }) => setSize(bounds)}>
+                {({ measureRef }) => (
+                  <Center ref={measureRef}>
+                    <Grid {...{ rows, columns, size }} />
+                  </Center>
+                )}
+              </Measure>
+            </CombineContexts>
+          </Center>
+        </DebugContext.Provider>
+      </ThemeProvider>
+    </ThemeSwitchContext.Provider>
   );
 };
 
