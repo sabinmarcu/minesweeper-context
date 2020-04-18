@@ -1,29 +1,31 @@
-import React, {
-  createContext, useState, useMemo, useEffect,
-} from 'react';
+import React, { createContext, useState, useMemo, useEffect } from "react";
 
-import { ThemeProvider } from 'emotion-theming';
-import Measure, { BoundingRect } from 'react-measure';
-import { RouteComponentProps } from 'react-router-dom';
+import { ThemeProvider } from "emotion-theming";
+import Measure, { BoundingRect } from "react-measure";
+import { RouteComponentProps } from "react-router-dom";
 
+import Grid from "../Grid";
+import { Center } from "../Layout";
 
-import Grid from '../Grid';
-import { Center } from '../Layout';
+import { CombineContexts } from "../../utils/combine";
+import { GameProvider } from "../../stores/game";
+import { ActionsProvider } from "../../stores/actions";
 
-import { CombineContexts } from '../../utils/combine';
-import { GameProvider } from '../../stores/game';
-import { ActionsProvider } from '../../stores/actions';
+import { themeLight, theme } from "../../config/theme";
 
-import { themeLight, theme } from '../../config/theme';
+const noop = (e: any): void => {
+  e.preventDefault();
+  e.stopPropagation();
+};
 
 export const DebugContext = createContext<boolean>(false);
 export const ThemeSwitchContext = createContext<{
   isDark: boolean;
   toggle: () => void;
-    }>({
-      isDark: true,
-      toggle: () => {},
-    });
+}>({
+  isDark: true,
+  toggle: () => {}
+});
 
 export const GameComponent: React.FC<
   RouteComponentProps<{
@@ -34,10 +36,8 @@ export const GameComponent: React.FC<
   }>
 > = ({
   match: {
-    params: {
-      rows: r, columns: c, bombs: b, debug: d,
-    },
-  },
+    params: { rows: r, columns: c, bombs: b, debug: d }
+  }
 }) => {
   const rows = useMemo(() => parseInt(r, 10), [r]);
   const columns = useMemo(() => parseInt(c, 10), [c]);
@@ -45,7 +45,7 @@ export const GameComponent: React.FC<
   const debug = useMemo(() => !!d, [d]);
   const [size, setSize] = useState<BoundingRect | undefined>();
   const [isDark, setIsDark] = useState<boolean>(true);
-  const toggleDarkTheme = (): void => setIsDark((d) => !d);
+  const toggleDarkTheme = (): void => setIsDark(d => !d);
   useEffect(() => {
     document.title = `${columns}x${rows}x${bombs}`;
   }, [columns, rows, bombs]);
@@ -56,9 +56,12 @@ export const GameComponent: React.FC<
     <ThemeSwitchContext.Provider value={{ isDark, toggle: toggleDarkTheme }}>
       <ThemeProvider theme={isDark ? theme : themeLight}>
         <DebugContext.Provider value={debug}>
-          <Center>
+          <Center onContextMenu={noop}>
             <CombineContexts
-              contexts={[ActionsProvider, [GameProvider, { rows, columns, bombs }]]}
+              contexts={[
+                ActionsProvider,
+                [GameProvider, { rows, columns, bombs }]
+              ]}
             >
               <Measure bounds onResize={({ bounds }) => setSize(bounds)}>
                 {({ measureRef }) => (
