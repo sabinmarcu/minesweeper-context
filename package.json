@@ -43,7 +43,7 @@
     "customize-cra": "^0.9.1",
     "dotenv-flow": "^3.1.0",
     "dts-gen": "^0.6.0",
-    "eslint": "^6.8.0",
+    "eslint": "^9.26.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-import-resolver-parcel": "^1.10.4",
     "eslint-plugin-import": "^2.20.2",
